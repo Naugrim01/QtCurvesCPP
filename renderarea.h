@@ -18,7 +18,7 @@ public:
     void setBackgroundColor (QColor color){ mBackgroundColor = color;}  // setter
     QColor backgroundColor () const {return mBackgroundColor; }   //getter
 
-    void setShape (ShapeType shape) { mShape = shape; }
+    void setShape (ShapeType shape) { mShape = shape; on_shape_changed (); }
     ShapeType shape () const {return mShape; }
 
 protected:
@@ -30,12 +30,17 @@ public slots:
 
 private:
 
+    void on_shape_changed ();
     QPointF compute_astroid (float t);
 
 private:
     QColor mBackgroundColor;
     QColor mShapeColor;
     ShapeType mShape;
+
+    float mIntervalLength;
+    float mScale;
+    int mStepCount;
 
 };
 

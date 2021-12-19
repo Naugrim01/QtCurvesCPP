@@ -1,8 +1,12 @@
 #include "renderarea.h"
 
-RenderArea::RenderArea(QWidget *parent) : QWidget(parent), mBackgroundColor(0,0,255), mShapeColor(255,255,255), mShape (Astroid)
+RenderArea::RenderArea(QWidget *parent) :
+    QWidget(parent),
+    mBackgroundColor(0,0,255),
+    mShapeColor(255,255,255),
+    mShape (Astroid)
 {
-
+    on_shape_changed();
 }
 
 QSize RenderArea::minimumSizeHint() const
@@ -13,6 +17,35 @@ QSize RenderArea::sizeHint() const
 {
     return QSize(400, 200);
 }
+
+void RenderArea::on_shape_changed ()
+{
+    switch (mShape)
+    {
+    case Astroid:
+        mScale = 100;
+        mIntervalLength = 2 * M_PI;
+        mStepCount = 512;
+        break;
+
+    case Cycloid:
+
+        break;
+
+    case HuygensCycloid:
+
+        break;
+
+    case HypoCycloid:
+
+        break;
+
+    default:
+        break;
+    }
+
+}
+
 //astroid fuction body:
 QPointF RenderArea::compute_astroid (float t)
 {
@@ -29,28 +62,6 @@ void RenderArea::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
 
-    switch (mShape)
-    {
-    case Astroid:
-        mBackgroundColor = Qt::red;
-        break;
-
-    case Cycloid:
-        mBackgroundColor = Qt::green;
-        break;
-
-    case HuygensCycloid:
-        mBackgroundColor = Qt::blue;
-        break;
-
-    case HypoCycloid:
-        mBackgroundColor = Qt::yellow;
-        break;
-
-    default:
-        break;
-    }
-
     painter.setBrush(mBackgroundColor);
     painter.setPen(mShapeColor);
 
@@ -58,17 +69,15 @@ void RenderArea::paintEvent(QPaintEvent *event)
     painter.drawRect(this->rect());
 
     QPoint center = this->rect().center();
-    int stepCount = 256;
-    float scale = 40;
-    float intervalLength = 2*M_PI;
-    float step = intervalLength / stepCount;
-    for (float t = 0; t < intervalLength; t += step)
+
+    float step = mIntervalLength / mStepCount;
+    for (float t = 0; t < mIntervalLength; t += step)
     {
         QPointF point = compute_astroid (t);
 
         QPoint pixel;
-        pixel.setX(point.x() * scale + center.x());
-        pixel.setY(point.y() * scale + center.y());
+        pixel.setX(point.x() * mScale + center.x());
+        pixel.setY(point.y() * mScale + center.y());
 
         painter.drawPoint(pixel);
 
