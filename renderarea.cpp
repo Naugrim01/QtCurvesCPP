@@ -23,21 +23,31 @@ void RenderArea::on_shape_changed ()
     switch (mShape)
     {
     case Astroid:
-        mScale = 100;
+        mScale = 80;
         mIntervalLength = 2 * M_PI;
         mStepCount = 512;
         break;
 
     case Cycloid:
-
+        mScale = 8;
+        mIntervalLength = 6 * M_PI;
+        mStepCount = 256;
         break;
 
     case HuygensCycloid:
-
+        mScale = 8;
+        mIntervalLength = 4 * M_PI;
+        mStepCount = 512;
         break;
 
     case HypoCycloid:
+        mScale = 30;
+        mIntervalLength = 2 * M_PI;
+        mStepCount = 512;
+        break;
 
+    case FutureCurve:
+        // set specific values
         break;
 
     default:
@@ -89,17 +99,26 @@ QPointF RenderArea::compute_astroid (float t)
 
 QPointF RenderArea::compute_cycloid (float t)
 {
-    //  TBD
+    return QPointF(
+                1.5 * (1 - cos (t)), //x
+                1.5 * (t - sin(t)) //y
+                );
 }
 
 QPointF RenderArea::compute_huygens (float t)
 {
-    //  TBD
+    return QPointF(
+                4 * (3 * cos (t) - cos (3 * t)), //x
+                4 * (3 * sin (t) - sin (3 * t)) //y
+                );
 }
 
 QPointF RenderArea::compute_hypo (float t)
 {
-    //  TBD
+    return QPointF(
+               1.5 * (2 * cos (t) + cos (2 * t)), //x
+               1.5 * (2 * sin (t) - sin (2 * t)) //y
+                );
 }
 
 QPointF RenderArea::compute_future_curve (float t)
