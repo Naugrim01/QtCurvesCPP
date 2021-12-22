@@ -23,32 +23,38 @@ void RenderArea::on_shape_changed ()
     switch (mShape)
     {
     case Astroid:
-        mScale = 80;
+        mScale = 180;
         mIntervalLength = 2 * M_PI;
-        mStepCount = 512;
-        break;
-
-    case Cycloid:
-        mScale = 8;
-        mIntervalLength = 6 * M_PI;
         mStepCount = 256;
         break;
 
-    case HuygensCycloid:
-        mScale = 8;
+    case Cycloid:
+        mScale = 10;
         mIntervalLength = 4 * M_PI;
-        mStepCount = 512;
+        mStepCount = 128;
+        break;
+
+    case HuygensCycloid:
+        mScale = 12;
+        mIntervalLength = 4 * M_PI;
+        mStepCount = 256;
         break;
 
     case HypoCycloid:
-        mScale = 30;
+        mScale = 40;
         mIntervalLength = 2 * M_PI;
-        mStepCount = 512;
+        mStepCount = 256;
         break;
 
     case Line:
-        mIntervalLength = 1; //not really needed
-        mScale = 200; // line in pixels
+        mIntervalLength = 2; //not really needed
+        mScale = 198; // line in pixels
+        mStepCount = 128;
+        break;
+
+    case Circle:
+        mScale = 150;
+        mIntervalLength = 2 * M_PI + 0.12;
         mStepCount = 256;
         break;
 
@@ -80,6 +86,10 @@ QPointF RenderArea::compute (float t)
 
     case Line:
         return compute_line(t);
+        break;
+
+    case Circle:
+        return compute_circle(t);
         break;
 
     default:
@@ -131,7 +141,13 @@ QPointF RenderArea::compute_line (float t)
                 );
 }
 
-
+QPointF RenderArea::compute_circle (float t)
+{
+    return QPointF(
+               cos (t), //x
+               sin (t) //y
+                );
+}
 
 void RenderArea::paintEvent(QPaintEvent *event)
 {

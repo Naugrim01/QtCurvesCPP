@@ -26,6 +26,8 @@ private slots:
 
     void on_btnLine_clicked();
 
+    void on_btnCircle_clicked();
+
     void on_spinScale_valueChanged(double arg1);
 
     void on_spinInterval_valueChanged(double arg1);
@@ -35,6 +37,7 @@ private slots:
     void on_btnBackground_clicked();
 
     void on_btnLineColor_clicked();
+
 
 private:
 
