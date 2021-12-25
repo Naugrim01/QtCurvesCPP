@@ -24,6 +24,7 @@ void MainWindow::update_ui()
 {
     this->ui->spinScale->setValue( this->ui->renderArea->scale());
     this->ui->spinInterval->setValue( this->ui->renderArea->interval());
+    this->ui->spinCount->setValue(this->ui->renderArea->stepCount());
 }
 
 // change background color for render area
@@ -74,6 +75,12 @@ void MainWindow::on_btnCircle_clicked()
     update_ui();
 }
 
+void MainWindow::on_btnElipse_clicked()
+{
+    this->ui->renderArea->setShape (RenderArea::Elipse);
+    this->ui->renderArea->repaint();
+    update_ui();
+}
 
 void MainWindow::on_spinScale_valueChanged(double scale)
 {
@@ -108,6 +115,4 @@ void MainWindow::on_btnLineColor_clicked()
     QColor color = QColorDialog::getColor(ui->renderArea->shapeColor(), this, "Select Color");
     ui->renderArea->setShapeColor(color);
 }
-
-
 

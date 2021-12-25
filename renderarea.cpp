@@ -49,13 +49,19 @@ void RenderArea::on_shape_changed ()
     case Line:
         mIntervalLength = 2; //not really needed
         mScale = 198; // line in pixels
-        mStepCount = 128;
+        mStepCount = 12;
         break;
 
     case Circle:
         mScale = 150;
         mIntervalLength = 2 * M_PI + 0.12;
-        mStepCount = 256;
+        mStepCount = 128;
+        break;
+
+    case Elipse:
+        mScale = 75;
+        mIntervalLength = 2 * M_PI + 0.12;
+        mStepCount = 128;
         break;
 
     default:
@@ -90,6 +96,10 @@ QPointF RenderArea::compute (float t)
 
     case Circle:
         return compute_circle(t);
+        break;
+
+    case Elipse:
+        return compute_elipse(t);
         break;
 
     default:
@@ -146,6 +156,16 @@ QPointF RenderArea::compute_circle (float t)
     return QPointF(
                cos (t), //x
                sin (t) //y
+                );
+}
+
+QPointF RenderArea::compute_elipse (float t)
+{
+    float a = 2;
+    float b = 1.1;
+    return QPointF(
+               a * cos (t), //x
+               b * sin (t) //y
                 );
 }
 
