@@ -98,9 +98,16 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btnElipse">
+       <widget class="QPushButton" name="btnEllipse">
         <property name="text">
-         <string>Elipse</string>
+         <string>Ellipse</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnFancy">
+        <property name="text">
+         <string>Fancy</string>
         </property>
        </widget>
       </item>
