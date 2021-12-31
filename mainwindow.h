@@ -44,6 +44,8 @@ private slots:
 
     void on_btnStarfish_clicked();
 
+    void on_btnCloud_clicked();
+
 private:
 
     void update_ui();
