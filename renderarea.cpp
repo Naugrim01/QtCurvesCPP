@@ -83,6 +83,12 @@ void RenderArea::on_shape_changed ()
         mStepCount = 128;
         break;
 
+    case InvertedCloud:
+        mScale = 10;
+        mIntervalLength = 28 * M_PI;
+        mStepCount = 128;
+        break;
+
     default:
         break;
     }
@@ -131,6 +137,10 @@ QPointF RenderArea::compute (float t)
 
     case Cloud:
         return compute_cloud(t);
+        break;
+
+    case InvertedCloud:
+        return compute_inverted_cloud(t);
         break;
 
     default:
@@ -223,14 +233,26 @@ QPointF RenderArea::compute_starfish(float t)
 
 QPointF RenderArea::compute_cloud(float t)
 {
+    return RenderArea::compute_cloud_with_sign(t, 1);
+}
+
+QPointF RenderArea::compute_inverted_cloud(float t)
+{
+    return RenderArea::compute_cloud_with_sign(t, -1);
+}
+
+
+QPointF RenderArea::compute_cloud_with_sign(float t, float sign)
+{
     float a = 14;
     float b = 1;
-    float sign = 1;
+
     return QPointF(
                (a + b) * cos (t * b / a) - sign * b * cos(((a + b)/a) * t), //x
                (a + b) * sin (t * b / a) - b * sin(((a + b)/a) * t) //y
                 );
 }
+
 
 void RenderArea::paintEvent(QPaintEvent *event)
 {
